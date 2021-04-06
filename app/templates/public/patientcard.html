@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/patient.css') }}"/>
+{% endblock %}
+
+{% block body %}
+
+
+<div id="register_visit">
+    Witaj {{data['name']}}
+    <h3>Zarejestruj wizytę</h3>
+    <form action="visit" method="POST">
+        Imię:
+        <input type="text" name="name" value="{{ data['name'] }}"/><br></br>
+        Nazwisko:
+        <input type="text" name="surname" value="{{ data['surname'] }}"/><br></br>
+        Kod pocztowy:
+        <input type="text" name="postalcode"/><br><br>
+        Miasto:
+        <input type="text" name="city" ><Br></br>
+        Data urodzenia:
+        <input type="date" name="born" value="{{ data['born']}}"/><br></br>
+        Data wizyty:
+        <input type="date" name="visit" value="{{ time }}"/><br></br>
+        <input type="submit" value="Umów wizytę"/>
+    </form>
+    <a href="{{ url_for('visits_history')}}">Historia wizyt</a><br>
+    <a href="{{ url_for('rH')}}">Dane zdrowotne</a>
+</div>
+<div id="history">
+    {% for i in data %}
+        <div class="visit">
+            <span style="font-size:20px;">{{ i['visit_date'] }}</span><br>
+            {{ i['name'] }}<br>
+            {{ i['surname']}}<br>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

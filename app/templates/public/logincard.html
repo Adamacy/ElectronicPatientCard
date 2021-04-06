@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/logincard.css') }}">
+{% endblock %}
+{% block body%}
+    {{attention}}
+    <main>
+        <center>
+            <form method="POST" action="login">
+                Pesel:
+                <input type="text" name="pesel" maxlength="11"/><br><br>
+                Numer telefonu:
+                <input type="number" name="phone" maxlength="9"/><br></br>
+                <input type="submit" value="sprawdź"/>
+            </form><Br>
+            <p style="font-size:10px;">Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></p>
+        </center>
+    </main>
+{% endblock %}

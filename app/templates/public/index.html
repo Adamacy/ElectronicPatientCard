@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    {% endblock %}
+    {% block body %}
+        <main>
+            <a href="{{ url_for('render_card')}}">Karta pacjenta</a>
+        </main>
+    {% endblock %}

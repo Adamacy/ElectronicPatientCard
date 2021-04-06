@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body%}
+<form method="POST" action="registercard">
+    Imię:
+    <input type="text" name="name"/><Br><br>
+    Nazwisko:
+    <input type="text" name="surname"/><Br><br>
+    Adres:
+    <input type="text" name="adress"/><Br><br>
+    Pesel:
+    <input type="text" name="pesel"/><Br><br>
+    Numer telefonu:
+    <input type="text" name="phone" maxlength="9"/><br></br>
+    Data urodzenia:
+    <input type="date" name="born"/><br></br>
+    <input type="submit" value="Utwórz"/>
+</form>
+{% endblock %}
