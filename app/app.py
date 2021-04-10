@@ -1,6 +1,6 @@
 from array import array
 from datetime import date
-from flask import Flask, render_template, url_for, request, session, flash
+from flask import Flask, render_template, url_for, request, session, flash, redirect
 from flask.helpers import flash
 from flask_pymongo import PyMongo
 import json
@@ -9,8 +9,18 @@ from bson import json_util
 app = Flask(__name__, static_folder='./static', static_url_path='')
 app.config.from_object('config.DevelopmentConfig')
 
+#mongodb+srv://Adamacy:<password>@cluster0.umzi0.mongodb.net/test
+
 mongo = PyMongo(app)
 mongo.init_app(app)
+
+def parse_json(data):
+    return json.loads(json_util.dumps(data))
+
+@app.route('/c')
+def logout():
+    session.clear()
+    return 'Zostałeś wylogowany'
 
 @app.route('/')
 def index():
@@ -24,13 +34,25 @@ def render_card():
 def newcard():
     return render_template('public/newcard.html')
 
-@app.route('/doctor')
+@app.route('/newinfo')
+def render_informations():
+    return render_template('public/newinfo.html')
+
+@app.route('/doctorcard')
 def dCard():
-    return render_template('public/doctor.html')
+    if 'doctor' in session:
+        return render_template('public/doctor.html')
+    else:
+        return render_template('public/logincard.html', attention='Nie jesteś zalogowany jako doktor')
+
 
 @app.route('/render_health')
 def rH():
-    return render_template('public/health.html')
+    pesel = session['user']['pesel']
+    find = mongo.db.healthStatus.find_one({'pesel': pesel})
+    if find != None:
+        return render_template('public/health.html', data=find)
+    return render_template('public/health.html', data='Nie ma żadnych danych')
 
 @app.route('/login', methods=['POST'])
 def login_card():
@@ -85,15 +107,12 @@ def visits_history():
         visits.append(x)
     return render_template('public/patientcard.html', data=visits)
 
-@app.route('/health')
-def health_checker():
-    pass
-
-@app.route('/patients')
+@app.route('/doctor', methods=['POST'])
 def renderPage():
     array = []
     find = mongo.db.cards.find({})
     for x in find:
+        print(x)
         array.append(x)
     return render_template('public/doctor.html', data=array)
 
@@ -102,20 +121,72 @@ def find_patient(pesel):
     find = mongo.db.healthStatus.find_one({'pesel': pesel})
     print(find)
     if find == None:
-        return '''
-                <h3>Nie można znaleść stanu zdrowia pacjenta!</h3>
-                <form action="create" method="POST"> 
-                    <input type="text" name="holestelor" placeholder="holesterol?"/>
-                    <input type="submit" value="utwórz"/>
-                </form>
-        '''
+        return render_template('public/newinfo.html', pesel=pesel)
     return render_template('public/details.html', data=find)
 
-@app.route('/create')
+@app.route('/newinfo/<pesel>')
+def cos(pesel):
+    return render_template('public/newinfo.html', pesel=pesel)
+
+@app.route('/create', methods=['POST'])
 def createStatus():
     data = {
-        'holestelor': request.form.get('holestelor')
+        'leukocyty': request.form.get('leukocyt'),
+        'erytrocyty': request.form.get('erytrocyt'),
+        'hemoglobina': request.form.get('hemoglobina'),
+        'hematokryt': request.form.get('hematokryt'),
+        'mcv': request.form.get('mcv'),
+        'mch': request.form.get('mch'),
+        'mchc': request.form.get('mchc'),
+        'plytki': request.form.get('plytki'),
+        'limfocyty': request.form.get('limfocyt'),
+        'inne': request.form.get('inne'),
+        'neutrofile': request.form.get('neutrofile'),
+        'rdw': request.form.get('rdw'),
+        'pdw': request.form.get('pdw'),
+        'mpv': request.form.get('mpv'),
+        'lcr': request.form.get('lcr'),
+        'przejrzystosc': request.form.get('przejrzystosc'),
+        'barwa': request.form.get('barwa'),
+        'ciezar': request.form.get('ciezar'),
+        'pH': request.form.get('pH'),
+        'glukoza': request.form.get('glukoza'),
+        'ketony': request.form.get('ketony'),
+        'urubilinogen': request.form.get('urubilinogen'),
+        'urubilinogen': request.form.get('urubilinogen'),
+        'bialka': request.form.get('bialka'),
+        'azotyny': request.form.get('azotyny'),
+        'erytrocyty_mocz': request.form.get('erytrocyt_mocz'),
+        'leukocyt_mocz': request.form.get('leukocyt_mocz'),
+        'nablonki': request.form.get('nablonki'),
+        'leukocyt_osad': request.form.get('leukocyt_osad'),
+        'erytrocyty_swieze': request.form.get('erytrocyty_swieze'),
+        'erytrocyt_wylugowny': request.form.get('erytrocyt_wylugowny'),
+        'bakterie': request.form.get('bakterie'),
+        'kreatynina': request.form.get('kreatynina'),
+        'egfr': request.form.get('egfr'),
+        'glukoza_mocz': request.form.get('glukoza_mocz'),
+        'crp': request.form.get('crp'),
+        'tsh': request.form.get('tsh'),
+        'pesel': request.form.get('pesel')
     }
-    mongo.db.healthStatus.insert_one(data)
+    find = mongo.db.healthStatus.find_one({'pesel': data['pesel']})
+    if find != None:
+        mongo.db.healthStatus.update_one(find, {'$set': data})
+        return 'Dane zostały zmienione'
+    else:
+        mongo.db.healthStatus.insert_one(data)
+    return parse_json(data)
+
+@app.route('/logindoctor', methods=['POST'])
+def Doctor():
+    doctorID = request.form.get('doctorID')
+    find = mongo.db.doctors.find_one({'doctorID': doctorID})
+    if find == None:
+        return 'Nie isnieje konto z takim identyfikatorem, żeby takie utworzyć zgłoś się do zarządcy placówki.'
+    else:
+        session['doctor'] = doctorID
+    return render_template('public/doctor.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,12 +4,11 @@
 
 {% endblock %}
 {% block body %}
-    <div id="myDropdown" class="dropdown-content">
-        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"><br>
-        {% for i in data %}
-            <a href="/details/{{i['pesel']}}">{{i['name']}} {{ i['surname'] }}</a><br>
-        {% endfor %}
-      </div>
+<a href="{{ 'c' }}">Wyloguj</a>
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"><br>
+    {% for i in data %}
+        <a href="/details/{{i['pesel']}}">{{i['name']}} {{ i['surname'] }}</a><br>
+    {% endfor %}
 <script>
     function filterFunction() {
         var input, filter, ul, li, a, i;

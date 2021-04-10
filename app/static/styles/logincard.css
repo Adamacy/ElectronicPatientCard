@@ -13,3 +13,8 @@ main{
     background-color: aquamarine;
     text-align: center;
 }
+nav{
+    width:350px;
+    float:right;
+    text-align: right;
+}

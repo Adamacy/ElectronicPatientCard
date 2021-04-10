@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+<style>
+    span{
+        font-size:30px;
+    }
+</style>
 {% endblock %}
 {% block body %}
-{{data}}
+{% for i in data %}
+<span>{{i}}:{{data[i]}}</span>
+
+<br>
+{% endfor %}
+<a href="/newinfo/{{data['pesel']}}">edytuj dane</a>
 {% endblock %}

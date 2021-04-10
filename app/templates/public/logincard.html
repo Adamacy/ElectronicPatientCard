@@ -5,6 +5,13 @@
 {% endblock %}
 {% block body%}
     {{attention}}
+    <nav>
+        Jestem lekarzem
+        <form method="POST" action="doctor">
+            <input type="text" name="doctorID" max="12" placeholder="Podaj swój identyfikator"/>
+            <input type="submit"/>
+        </form>
+    </nav>
     <main>
         <center>
             <form method="POST" action="login">
@@ -12,7 +19,7 @@
                 <input type="text" name="pesel" maxlength="11"/><br><br>
                 Numer telefonu:
                 <input type="number" name="phone" maxlength="9"/><br></br>
-                <input type="submit" value="sprawdź"/>
+                <input type="submit"/>
             </form><Br>
             <p style="font-size:10px;">Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></p>
         </center>
