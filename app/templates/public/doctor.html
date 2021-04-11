@@ -4,7 +4,7 @@
 
 {% endblock %}
 {% block body %}
-<a href="{{ 'c' }}">Wyloguj</a>
+<a href="{{ 'logout' }}">Wyloguj</a>
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"><br>
     {% for i in data %}
         <a href="/details/{{i['pesel']}}">{{i['name']}} {{ i['surname'] }}</a><br>

@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block body %}
-
-
 <div id="register_visit">
     Witaj {{data['name']}}
-    <a href="{{url_for('c')}}">Wyloguj</a>
+    {{attention}}
+    <a href="{{url_for('logoutAccount')}}">Wyloguj</a>
     <h3>Zarejestruj wizytę</h3>
     <form action="visit" method="POST">
         Imię:

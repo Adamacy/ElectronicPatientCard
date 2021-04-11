@@ -17,18 +17,21 @@ mongo.init_app(app)
 def parse_json(data):
     return json.loads(json_util.dumps(data))
 
-@app.route('/c')
-def logout():
+@app.route('/logout')
+def logoutAccount():
     session.clear()
-    return 'Zostałeś wylogowany'
+    return render_template('public/index.html', attention='Zostałeś wylogowany')
 
 @app.route('/')
 def index():
+    if 'doctor' in session:
+        return render_template('public/doctor.html')
+    if 'user' in session:
+        pesel = session['user']['pesel']
+        find = mongo.db.cards.find_one({'pesel': pesel})
+        
+        return render_template('public/patientcard.html', data=find)
     return render_template('public/index.html')
-
-@app.route('/render_login_page')
-def render_card():
-    return render_template('public/logincard.html')
 
 @app.route('/new')
 def newcard():
@@ -40,11 +43,7 @@ def render_informations():
 
 @app.route('/doctorcard')
 def dCard():
-    if 'doctor' in session:
-        return render_template('public/doctor.html')
-    else:
-        return render_template('public/logincard.html', attention='Nie jesteś zalogowany jako doktor')
-
+    return render_template('public/doctor.html')
 
 @app.route('/render_health')
 def rH():
@@ -61,10 +60,12 @@ def login_card():
         'pesel': request.form.get('pesel'),
     }
     find = mongo.db.cards.find_one({'pesel': data['pesel']})
-    session['user'] = data
+    
     if find == None:
-        return render_template('public/logincard.html', attention='Nie posiadasz karty na naszej stronie, prosimy najpierw o jej utworzenie.')
-    return render_template('public/patientcard.html', data=find, time=date.today())
+        return render_template('public/index.html', attention='Nie posiadasz karty na naszej stronie, prosimy najpierw o jej utworzenie.')
+    else:
+        session['user'] = data
+        return render_template('public/patientcard.html', data=find, time=date.today())
 
 @app.route('/registercard', methods=['POST'])
 def create():
@@ -77,10 +78,11 @@ def create():
         'born': request.form.get('born'),
     }
     find = mongo.db.cards.find_one({'pesel': data['pesel']})
+    
     if find != None:
         return 'Podano złe dane'
     mongo.db.cards.insert_one(data)
-    return 'Karta została utworzona'
+    return render_template('public/index.html', attention='Karta została utworzona')
 
 @app.route('/visit', methods=['POST'])
 def create_visit():
@@ -108,6 +110,14 @@ def visits_history():
     return render_template('public/patientcard.html', data=visits)
 
 @app.route('/doctor', methods=['POST'])
+def loginDoctor():
+    doctorID = request.form.get('doctorID')
+    find = mongo.db.doctors.find_one({'doctorID': doctorID})
+    if find == None:
+        return 'Nie isnieje konto z takim identyfikatorem, żeby takie utworzyć zgłoś się do zarządcy placówki.'
+    session['doctor'] = doctorID
+    return renderPage()
+
 def renderPage():
     array = []
     find = mongo.db.cards.find({})
@@ -119,7 +129,6 @@ def renderPage():
 @app.route('/details/<pesel>', methods=['POST', 'GET'])
 def find_patient(pesel):
     find = mongo.db.healthStatus.find_one({'pesel': pesel})
-    print(find)
     if find == None:
         return render_template('public/newinfo.html', pesel=pesel)
     return render_template('public/details.html', data=find)
@@ -177,16 +186,6 @@ def createStatus():
     else:
         mongo.db.healthStatus.insert_one(data)
     return parse_json(data)
-
-@app.route('/logindoctor', methods=['POST'])
-def Doctor():
-    doctorID = request.form.get('doctorID')
-    find = mongo.db.doctors.find_one({'doctorID': doctorID})
-    if find == None:
-        return 'Nie isnieje konto z takim identyfikatorem, żeby takie utworzyć zgłoś się do zarządcy placówki.'
-    else:
-        session['doctor'] = doctorID
-    return render_template('public/doctor.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
-    {% block head %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-    {% endblock %}
-    {% block body %}
-        <main>
-            <a href="{{ url_for('render_card')}}">Zaloguj</a>
-            <a href="{{ url_for('render_card')}}">Zarejestruj</a>
-        </main>
-    {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/logincard.css') }}">
+{% endblock %}
+{% block body%}
+    {{attention}}
+    <nav>
+        Jestem lekarzem
+        <form method="POST" action="doctor">
+            <input type="text" name="doctorID" max="12" placeholder="Podaj swój identyfikator"/>
+            <input type="submit"/>
+        </form>
+    </nav>
+    <main>
+        <center>
+            <form method="POST" action="login">
+                Pesel:
+                <input type="text" name="pesel" maxlength="11"/><br><br>
+                Numer telefonu:
+                <input type="number" name="phone" maxlength="9"/><br></br>
+                <input type="submit"/>
+            </form><Br>
+            <p style="font-size:10px;">Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></p>
+        </center>
+    </main>
+{% endblock %}
