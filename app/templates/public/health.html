@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/health.css')}}"/>
+{% endblock %}
+
+{% block body %}
+<div id="data">
+    {% for i in data%}
+        {% if 'pesel' in i %}
+            <div style="display: none;">{{data[i]}}</div>
+        {% elif '_id' in i %}
+            
+        {% elif data[i]|length %}
+            {{i}}: <b>{{data[i]}}</b><br>
+        {% else %}
+            {{i}}: <b>Brak danych</b><br>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

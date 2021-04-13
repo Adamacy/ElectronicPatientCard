@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}
+{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/newinfo.css')}}"/>
+{% block body %}
+<center>Przy aktualizacji danych proszę ponownie podać wszystkie dane. <br>Przy niepodanych danych wyświetli się <b>Brak danych</b></center>
+<center><form method="POST" action="/create">
+    <h2>Morfologia krwi</h2>
+    <label>Leukocyty <input type="text" name="leukocyt"/><br><br></label>
+    <label>Erytrocyty <input type="text" name="erytrocyt"/><br><br></label>
+    <label>Hemoglobina <input type="text" name="hemoglobina"/><br><br></label>
+    <label>Hematokryt <input type="text" name="hematokryt"/><br><br></label>
+    <label>MCV <input type="text" name="mcv"/><br><br></label>
+    <label>MCH <input type="text" name="mch"/><br><br></label>
+    <label>MCHC <input type="text" name="mchc"/><br><br></label>
+    <label>Płytki krwi <input type="text" name="plytki"/><br><br></label>
+    <label>Limfocyty % <input type="text" name="limfocyt"/><br><br></label>
+    <label>Inne(Eo, Bazo, Mono) % <input type="text" name="inne"/><br><br></label>
+    <label>Neutrofile % <input type="text" name="neutrofile"/><br><br></label>
+    <label>RDW-CV<input type="text" name="rdw"/><br><br></label>
+    <label>PDW <input type="text" name="pdw"/><br><br></label>
+    <label>MPV <input type="text" name="mpv"/><br><br></label>
+    <label>P-LCR<input type="text" name="lcr"/><br><br></label>
+    <h2>Badania ogólne moczu</h2>
+    <label>Przejrzystość <input type="text" name="przejrzystosc"/><br><br></label>
+    <label>Barwa <input type="text" name="barwa"/><br><br></label>
+    <label>Cięzar właściwy <input type="text" name="ciezar"/><br><br></label>
+    <label>pH <input type="text" name="pH"/><br><br></label>
+    <label>Glukoza <input type="text" name="glukoza"/><br><br></label>
+    <label>Ketony <input type="text" name="ketony"/><br><br></label>
+    <label>Urobilinogen <input type="text" name="urubilinogen"/><br><br></label>
+    <label>Bilirubina <input type="text" name="urubilinogen"/><br><br></label>
+    <label>Białko <input type="text" name="bialka"/><br><br></label>
+    <label>Azotyny <input type="text" name="azotyny"/><br><br></label>
+    <label>Erytrocyty <input type="text" name="erytrocyt_mocz"/><br><br></label>
+    <label>Leukocyty<input type="text" name="leukocyt_mocz"/><br><br></label>
+    <h4>Osad moczu (ICD-9: A19)</h4>
+    <label>Nabłonki płaskie <input type="text" name="nablonki"/><br><br></label>
+    <label>Leukocyty <input type="text" name="leukocyt_osad"/><br><br></label>
+    <label>Eryctocyty świeże <input type="text" name="erytrocyty_swieze"/><br><br></label>
+    <label>Erytrocyty wylugowne <input type="text" name="erytrocyt_wylugowny"/><br><br></label>
+    <label>Bakterie <input type="text" name="bakterie"/><br><br></label>
+    <h4><label>Kreatynina (ICD-9: M37) <input type="text" name="kreatynina"/><br><br></label></h4>
+    <h4><label>eGFR (ICD-9: M37) <input type="text" name="egfr"/><br><br></label></h4>
+    <h4><label>Glukoza (ICD-9: L43) <input type="text" name="glukoza_mocz"/><br><br></label></h4>
+    <h4><label>CRP (ICD-9: I81) <input type="text" name="crp"/><br><br></label></h4>
+    <h4><label>TSH (ICD-9: L69) <input type="text" name="tsh"/><br><br></label></h4>
+    Pesel {% if pesel is defined %}<input type="number" name="pesel" value="{{pesel}}"/>{% else %}<input type="number" name="pesel" value=""/>{% endif %}<br><br>
+    <input type="submit" value="prześlij"/>
+</form></center>
+{% endblock %}

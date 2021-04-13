@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    background: linear-gradient(120deg, #033a91, #13a1bf, #0adff2);
+    height:1000px;
+}
+header a{
+    font-size:30px;
+    text-decoration: none;
+    color: #ffba00;
+}
+main{
+    position: absolute;
+    transform: translate(-50%);
+    left:50%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+main a{
+    text-decoration: none;
+    color:black;
+}
+main a:hover{
+    color:yellowgreen;
+    transition: 0.3s;
+}

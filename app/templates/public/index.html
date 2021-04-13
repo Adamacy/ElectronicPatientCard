@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+{% endblock %}
+{% block body%}
+    <nav>
+        <form method="POST" action="doctor">
+            <input type="text" name="doctorID" max="12" placeholder="Podaj swój identyfikator"/>
+            <input type="submit"/>
+        </form>
+    </nav>
+    <main>
+        <h2>Logowanie pacjenta</h2>
+        <center>
+            <form method="POST" autocomplete="off" action="login">
+                <label>
+                Pesel:<br>
+                <input type="number" name="pesel" min="00000000000" max="99999999999"/><br><br></label>
+                Numer telefonu:<br>
+                <input type="number" name="phone" min="000000000" max="999999999"/><br></br>
+                <input type="submit" value="Zaloguj"/>
+            </form><Br>
+            <span>Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></span>
+        <center><h3>{{attention}}</h3></center>
+    </center>
+    </main>
+    
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+{% endblock %}
