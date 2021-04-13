@@ -12,19 +12,79 @@ main{
     left:50%;
     transform: translate(-50%, -50%);
 }
+h3{
+    color:red;
+    text-align: center;
+    bottom: 0;
+}
+h2{
+    
+}
+main span{
+    font-size: 15px;
+}
+a{
+    text-decoration: none;
+    color: #916b04;
+    transition: 0.5s;
+}
+a:hover{
+    color:#ffba00;
+}
+a:visited{
+    color:#ffba00;
+}
+nav{
+    float: right;
+}
+nav form{
+    margin:20px;
+}
+#doctor{
+    margin-left: 50px;
+}
+nav form input[type='text']{
+    width:auto;
+    height:3.4vh;
+    font-size: large;
+    float: left;
+    border: 0;
+}
+nav form input[type='submit']{
+    float: left;
+    height: 3.6vh;
+    border: 0;
+    background: green;
+    transition: 0.5s;
+}
+nav form input[type='submit']:hover{
+    background: greenyellow;
+}
+nav form input[type='submit']:focus{
+    outline: none;
+}
 main input[type='text'], input[type='number']{
     width:200px;
     height: 3vh;
-    background: none;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
     font-size: 20px;
+    border-radius: 10px;
+    border:0;
 }
 main input[type='text']:hover, input[type='number']:hover{
-    border-color: green;
     transition: 0.4s;
 }
 input[type='text']:focus, input[type='number']:focus{
     outline: none;
+}
+main input[type='submit']{
+    width:100px;
+    height:2.5vh;
+    background: green;
+    border:0;
+    transition: 0.5s;
+}
+main input[type='submit']:hover{
+    width:120px;
+    height:3vh;
+    background: greenyellow;
 }

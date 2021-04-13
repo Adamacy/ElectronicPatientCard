@@ -5,11 +5,18 @@
 {% endblock %}
 
 {% block body %}
-<div id="register_visit">
-    Witaj {{data['name']}}
-    {{attention}}
+<header>
+    <center id="welcome">Witaj {{data['name']}}<br>
+    <a href="{{url_for('index')}}">Strona główna</a>
     <a href="{{url_for('logoutAccount')}}">Wyloguj</a>
-    <h3>Zarejestruj wizytę</h3>
+    <a href="{{ url_for('visits_history')}}">Historia wizyt</a>
+    <a href="{{ url_for('rH')}}">Dane zdrowotne</a></center>
+    {{attention}}
+</header>
+<div id="register_visit">
+    
+    
+    <center><h3>Zarejestruj wizytę</h3></center>
     <form action="visit" method="POST">
         Imię:
         <input type="text" name="name" value="{{ data['name'] }}"/><br></br>
@@ -25,15 +32,14 @@
         <input type="date" name="visit" value="{{ time }}"/><br></br>
         <input type="submit" value="Umów wizytę"/>
     </form>
-    <a href="{{ url_for('visits_history')}}">Historia wizyt</a><br>
-    <a href="{{ url_for('rH')}}">Dane zdrowotne</a>
 </div>
 <div id="history">
     {% for i in data %}
         <div class="visit">
-            <span style="font-size:20px;">{{ i['visit_date'] }}</span><br>
-            {{ i['name'] }}<br>
-            {{ i['surname']}}<br>
+            <span id="visitDate">Data wizyty: <b>{{ i['visit_date'] }}</b></span><br>
+            <span id="name">Imię: <b>{{ i['name'] }}</b></span><br>
+            <span id="surname">Nazwisko: <b>{{ i['surname']}}</b></span><br>
+            <span id="city">Miasto: <b>{{i['city']}}</b></span>
         </div>
     {% endfor %}
 </div>

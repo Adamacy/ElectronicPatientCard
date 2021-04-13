@@ -4,25 +4,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 {% endblock %}
 {% block body%}
-    {{attention}}
     <nav>
-        Jestem lekarzem
         <form method="POST" action="doctor">
             <input type="text" name="doctorID" max="12" placeholder="Podaj swój identyfikator"/>
             <input type="submit"/>
         </form>
     </nav>
     <main>
+        <h2>Logowanie pacjenta</h2>
         <center>
-            <form method="POST" action="login">
+            <form method="POST" autocomplete="off" action="login">
                 <label>
                 Pesel:<br>
-                <input type="text" name="pesel" maxlength="11"/><br><br></label>
+                <input type="number" name="pesel" min="00000000000" max="99999999999"/><br><br></label>
                 Numer telefonu:<br>
-                <input type="number" name="phone" maxlength="9"/><br></br>
-                <input type="submit"/>
+                <input type="number" name="phone" min="000000000" max="999999999"/><br></br>
+                <input type="submit" value="Zaloguj"/>
             </form><Br>
-            <p style="font-size:10px;">Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></p>
-        </center>
+            <span>Nie posiadasz karty kliknij <a href="{{ url_for('newcard') }}">tutaj</a></span>
+        <center><h3>{{attention}}</h3></center>
+    </center>
     </main>
+    
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 {% endblock %}

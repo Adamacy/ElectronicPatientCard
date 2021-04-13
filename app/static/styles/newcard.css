@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+    height:1000px;
+    overflow: hidden;
+    background: linear-gradient(120deg, #033a91, #13a1bf, #0adff2);
+}
+form{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    float: left;
+    text-align: center;
+}
+form input[type='text'], form input[type='number']{
+    width: 100px;
+    height:2.5vh;
+    font-size: 20px;
+    border:0;
+    border-radius: 4px;
+}
+form input[type='date']{
+    width:150px;
+    height:2.5vh;
+    font-size:15px;
+    border:0;
+    border-radius: 4px;
+}
+form input:focus{
+    outline: none;
+}
+form input[type='submit']{
+    width: 100px;;
+    height:3vh;
+    border:0;
+    border-radius: 10px;
+    background: rgb(1, 61, 1);
+}
+form input[type='submit']:hover{
+    transition: 0.4s;
+    background: greenyellow;
+    width: 120px;
+}

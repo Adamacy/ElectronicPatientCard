@@ -9,7 +9,7 @@ class ProductionConfig(Config):
     TESTING = True
 
 class DevelopmentConfig(Config):
-    DEBUG = True
+    DEBUG = False
     FLASK_ENV = 'development'
     USERNAME = 'Adamacy'
     PASSWORD = 'NieInterere123'

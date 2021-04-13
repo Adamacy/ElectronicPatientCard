@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/newcard.css')}}">
 {% endblock %}
 
 {% block body%}
@@ -12,9 +13,9 @@
     Adres:
     <input type="text" name="adress"/><Br><br>
     Pesel:
-    <input type="text" name="pesel"/><Br><br>
+    <input type="number" min='00000000000' max="99999999999" name="pesel"/><Br><br>
     Numer telefonu:
-    <input type="text" name="phone" maxlength="9"/><br></br>
+    <input type="number" name="phone" min="0000000000" max="999999999"/><br></br>
     Data urodzenia:
     <input type="date" name="born"/><br></br>
     <input type="submit" value="Utwórz"/>

@@ -24,8 +24,6 @@ def logoutAccount():
 
 @app.route('/')
 def index():
-    if 'doctor' in session:
-        return render_template('public/doctor.html')
     if 'user' in session:
         pesel = session['user']['pesel']
         find = mongo.db.cards.find_one({'pesel': pesel})
@@ -122,7 +120,6 @@ def renderPage():
     array = []
     find = mongo.db.cards.find({})
     for x in find:
-        print(x)
         array.append(x)
     return render_template('public/doctor.html', data=array)
 
@@ -131,7 +128,7 @@ def find_patient(pesel):
     find = mongo.db.healthStatus.find_one({'pesel': pesel})
     if find == None:
         return render_template('public/newinfo.html', pesel=pesel)
-    return render_template('public/details.html', data=find)
+    return render_template('public/health.html', data=find)
 
 @app.route('/newinfo/<pesel>')
 def cos(pesel):
@@ -165,16 +162,16 @@ def createStatus():
         'urubilinogen': request.form.get('urubilinogen'),
         'bialka': request.form.get('bialka'),
         'azotyny': request.form.get('azotyny'),
-        'erytrocyty_mocz': request.form.get('erytrocyt_mocz'),
-        'leukocyt_mocz': request.form.get('leukocyt_mocz'),
+        'erytrocyty mocz': request.form.get('erytrocyt_mocz'),
+        'leukocyt mocz': request.form.get('leukocyt_mocz'),
         'nablonki': request.form.get('nablonki'),
-        'leukocyt_osad': request.form.get('leukocyt_osad'),
-        'erytrocyty_swieze': request.form.get('erytrocyty_swieze'),
-        'erytrocyt_wylugowny': request.form.get('erytrocyt_wylugowny'),
+        'leukocyt osad': request.form.get('leukocyt_osad'),
+        'erytrocyty swieze': request.form.get('erytrocyty_swieze'),
+        'erytrocyt wylugowny': request.form.get('erytrocyt_wylugowny'),
         'bakterie': request.form.get('bakterie'),
         'kreatynina': request.form.get('kreatynina'),
         'egfr': request.form.get('egfr'),
-        'glukoza_mocz': request.form.get('glukoza_mocz'),
+        'glukoza mocz': request.form.get('glukoza_mocz'),
         'crp': request.form.get('crp'),
         'tsh': request.form.get('tsh'),
         'pesel': request.form.get('pesel')
@@ -188,4 +185,4 @@ def createStatus():
     return parse_json(data)
 
 if __name__ == '__main__':
-    app.run(threaded=True, debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8181)

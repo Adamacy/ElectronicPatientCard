@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block head %}
 {% endblock %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/newinfo.css')}}"/>
 {% block body %}
-Przy aktualizacji danych proszę ponownie podać wszystkie dane
-<form method="POST" action="/create">
+<center>Przy aktualizacji danych proszę ponownie podać wszystkie dane. <br>Przy niepodanych danych wyświetli się <b>Brak danych</b></center>
+<center><form method="POST" action="/create">
     <h2>Morfologia krwi</h2>
     <label>Leukocyty <input type="text" name="leukocyt"/><br><br></label>
     <label>Erytrocyty <input type="text" name="erytrocyt"/><br><br></label>
@@ -47,5 +47,5 @@ Przy aktualizacji danych proszę ponownie podać wszystkie dane
     <h4><label>TSH (ICD-9: L69) <input type="text" name="tsh"/><br><br></label></h4>
     Pesel {% if pesel is defined %}<input type="number" name="pesel" value="{{pesel}}"/>{% else %}<input type="number" name="pesel" value=""/>{% endif %}<br><br>
     <input type="submit" value="prześlij"/>
-</form>
+</form></center>
 {% endblock %}
