@@ -2,7 +2,6 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'ERV+t4937-8t4/8s45d7gF'
-    DATABSE_NAME = 'PatientCard'
     SESSION_SECURE = False
 
 class ProductionConfig(Config):
@@ -16,7 +15,6 @@ class DevelopmentConfig(Config):
     PASSWORD = 'NieInterere123'
     MONGO_DB = 'PatientCard'
     MONGO_URI = f'mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.umzi0.mongodb.net/{MONGO_DB}?retryWrites=true&w=majority'
-    
 
 class TestingConfig(Config):
     TESTING = True

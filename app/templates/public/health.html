@@ -5,5 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    {{data}}
+    {% for i in data%}
+        {{i}}: {{data[i]}}<br>
+    {% endfor %}
 {% endblock %}

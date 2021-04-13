@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/logincard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 {% endblock %}
 {% block body%}
     {{attention}}
@@ -15,9 +15,10 @@
     <main>
         <center>
             <form method="POST" action="login">
-                Pesel:
-                <input type="text" name="pesel" maxlength="11"/><br><br>
-                Numer telefonu:
+                <label>
+                Pesel:<br>
+                <input type="text" name="pesel" maxlength="11"/><br><br></label>
+                Numer telefonu:<br>
                 <input type="number" name="phone" maxlength="9"/><br></br>
                 <input type="submit"/>
             </form><Br>

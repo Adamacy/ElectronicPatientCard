@@ -2,4 +2,29 @@ body{
     margin:0;
     padding: 0;
     font-family: sans-serif;
+    background: linear-gradient(120deg, #033a91, #13a1bf, #0adff2);
+    height:1000px;
+    overflow: hidden;
+}
+main{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+main input[type='text'], input[type='number']{
+    width:200px;
+    height: 3vh;
+    background: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    font-size: 20px;
+}
+main input[type='text']:hover, input[type='number']:hover{
+    border-color: green;
+    transition: 0.4s;
+}
+input[type='text']:focus, input[type='number']:focus{
+    outline: none;
 }

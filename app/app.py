@@ -3,7 +3,7 @@ from datetime import date
 from flask import Flask, render_template, url_for, request, session, flash, redirect
 from flask.helpers import flash
 from flask_pymongo import PyMongo
-import json
+import json, os
 from bson import json_util
 
 app = Flask(__name__, static_folder='./static', static_url_path='')
