@@ -2,11 +2,11 @@
 Application for doctors to obtain patients data.
 
 
-#Deployment
+# Deployment
 To deploy app you only need to download application and run main.py file.
 
 
 
-#Updates
+# Updates
 
 Program is old so something may not work
